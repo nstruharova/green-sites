@@ -1,0 +1,14 @@
+{
+  "name": "Green Chrome",
+  "description": "Green Chrome displays how sustainable a webpage is and which elements consume the most energy.",
+  "version": "1.0",
+  "manifest_version": 3,
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": ["activeTab", "scripting"],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "options_page": "options.html"
+}
