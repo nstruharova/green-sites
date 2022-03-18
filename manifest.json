@@ -6,7 +6,8 @@
   "background": {
     "service_worker": "background.js"
   },
-  "permissions": ["activeTab", "scripting"],
+  "permissions": ["activeTab", "scripting", "tabs"],
+  "host_permissions":["https://api.websitecarbon.com/*"],
   "action": {
     "default_popup": "popup.html"
   },
