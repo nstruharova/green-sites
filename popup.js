@@ -1,10 +1,22 @@
 showConsumption.addEventListener("click", async () => {
+    console.log('yeet');
     let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-  
+
     chrome.scripting.executeScript({
       target: { tabId: tab.id },
       function: setPageBackgroundColor,
     });
+
+    chrome.scripting.executeScript({
+      target: { tabId: tab.id },
+      function: getImages,
+    });
+
+    chrome.scripting.executeScript({
+      target: { tabId: tab.id },
+      function: getVideos,
+    });
+
   });
 
 function setPageBackgroundColor() {
@@ -12,7 +24,6 @@ function setPageBackgroundColor() {
     document.body.style.color = "white"
     document.body.style.fontFamily = "Arial"
 }
-
   //Access-Control-Allow-Origin: 'https://foo.example '
 function addtext(text){
   const p = document.createElement('p');
@@ -41,7 +52,7 @@ chrome.tabs.query({
   var data = JSON.parse(this.response);
   console.log("trying here")
   console.log(data)
-  
+
   addtext(`Bytes transferred:  ${parseFloat(data.statistics.adjustedBytes).toFixed()} bytes`)
   addtext(`Energy consumption: ${parseFloat(data.statistics.energy).toFixed(5)} kWg`)
 
@@ -56,3 +67,24 @@ chrome.tabs.query({
 
 request.send();
 });
+
+function readHTML() {
+    console.log(document.body);
+    console.log('\nyeetssss');
+}
+
+function getImages() {
+    console.log("=== Images ===");
+    var imagesCollection = document.getElementsByTagName('img');
+    var images = Array.from(imagesCollection);
+    images.forEach((x) => console.log(x));
+    console.log("There are " + images.length + " images");
+}
+
+function getVideos() {
+  console.log("=== Videos ===");
+  var videoCollection = document.getElementsByTagName('video');
+  var videos = Array.from(videoCollection);
+  videos.forEach((x) => console.log(x));
+  console.log("There are " + images.length + " videos");
+}
