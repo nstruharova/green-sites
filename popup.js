@@ -92,7 +92,7 @@ function getImages() {
       var naturalheight = x.naturalHeight;
     
       if(clientwidth == 0 || clientHeight == 0){
-        console.log("This image isn't rendered. Then why save it?")
+        console.log("This image isn't rendered. Check why this image isn't rendered. Possibly you have applied lazy loading without setting a width or height, which is bad practise.")
       }
       if(clientwidth>400 || clientheight > 400){
         console.log("This image is "+ clientwidth + "x" + clientheight+"px, we consider this a large image. Maybe this image could be smaller?");
