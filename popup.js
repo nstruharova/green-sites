@@ -21,6 +21,12 @@ showConsumption.addEventListener("click", async () => {
       function: getText,
     });
 
+    chrome.scripting.executeScript({
+      target: { tabId: tab.id },
+      function: checkLazyLoading,
+    });
+
+
   });
 
 function setPageBackgroundColor() {
@@ -72,8 +78,35 @@ chrome.tabs.query({
 request.send();
 });
 
-function getImageDimentions(images) {
-  console.log("get image dimentions")
+function readHTML() {
+    console.log(document.body);
+}
+
+function checkLazyLoading() {
+  var documentHeight = document.body.scrollHeight;
+  var windowHeight = window.innerHeight;
+
+  let heightRatio = documentHeight / windowHeight
+
+  console.log(heightRatio)
+  if (heightRatio > 1.0) {
+    console.log("Since the content of your page is about" + Math.round(heightRatio) + "-times longer than your window height, it overflows. Consider lazy loading for your content.")
+  }
+
+  let iframesCollection = document.getElementsByTagName('iframe');
+  var iframes = Array.from(iframesCollection);
+  iframes.forEach((x) => {
+    console.log(x);
+
+    if (x.loading != 'lazy') {
+      console.log("This iFrame does not seem to be loading lazily. Consider implementing this by changing the \"loading\" attribute to \"loading=lazy\".")
+    }
+  });
+}
+
+function getImageDimensions(images) {
+  console.log("Get image dimensions")
+
 }
 
 function getImages() {
@@ -82,7 +115,7 @@ function getImages() {
     var images = Array.from(imagesCollection);
     images.forEach((x) => {
       console.log(x);
-      
+
       // Check dimensions
       var clientwidth = x.clientWidth;
       var clientheight = x.clientHeight;
@@ -99,7 +132,7 @@ function getImages() {
       if(x.loading == 'eager'){
         console.log("This image is always loaded, regardless of whether it is shown. Consider lazy loading.");
       }
-      
+
       // Check file format
       var src = x.src;
       if(src.includes(".png")|| src.includes(".svg")){
@@ -108,10 +141,33 @@ function getImages() {
       if(src.includes(".jpg")||src.includes(".jpeg")||src.includes(".png")||src.includes(".svg")||src.includes(".gif")){
         console.log("Consider using the .avif file format.")
       }
-      
+
     });
     console.log("There are " + images.length + " images");
 }
+
+function checkLazyLoading() {
+  var documentHeight = document.body.scrollHeight;
+  var windowHeight = window.innerHeight;
+
+  let heightRatio = documentHeight / windowHeight;
+
+  console.log(heightRatio)
+  if (heightRatio > 1.0) {
+    console.log("Since the content of your page is about" + Math.round(heightRatio) + "-times longer than your window height, it overflows. Consider lazy loading for your content.")
+  }
+
+  let iframesCollection = document.getElementsByTagName('iframe');
+  var iframes = Array.from(iframesCollection);
+  iframes.forEach((x) => {
+    console.log(x);
+
+    if (x.loading != 'lazy') {
+      console.log("This iFrame does not seem to be loading lazily. Consider implementing this by changing the \"loading\" attribute to \"loading=lazy\".")
+    }
+  });
+}
+
 
 function getVideos() {
   console.log("=== Videos ===");
@@ -144,10 +200,10 @@ function getText() {
   let font = it.next();
   let fontArr = []
 
-  // Check used fonts , if this is not a standard font display a message. 
+  // Check used fonts , if this is not a standard font display a message.
   while (!font.done) {
     if (!(font.value[0].family in systemFonts)) {
-      fontArr.push(font.value[0].family);    
+      fontArr.push(font.value[0].family);
     }
     font = it.next();
   }
