@@ -129,11 +129,8 @@ function getImages() {
       }
 
       // Check lazy loading
-      // if(x.loading == 'eager'){
-      //   console.log("This image is always loaded, regardless of whether it is shown. Consider lazy loading by changing \"loading=eager\" to \"loading=lazy\".");
-      // }
-      if (x.loading != 'lazy') {
-        console.log("This image does not seem to be loading lazily. Consider implementing this by changing the \"loading\" attribute to \"loading=lazy\".")
+      if(x.loading == 'eager'){
+        console.log("This image is always loaded, regardless of whether it is shown. Consider lazy loading.");
       }
 
       // Check file format
@@ -148,6 +145,29 @@ function getImages() {
     });
     console.log("There are " + images.length + " images");
 }
+
+function checkLazyLoading() {
+  var documentHeight = document.body.scrollHeight;
+  var windowHeight = window.innerHeight;
+
+  let heightRatio = documentHeight / windowHeight;
+
+  console.log(heightRatio)
+  if (heightRatio > 1.0) {
+    console.log("Since the content of your page is about" + Math.round(heightRatio) + "-times longer than your window height, it overflows. Consider lazy loading for your content.")
+  }
+
+  let iframesCollection = document.getElementsByTagName('iframe');
+  var iframes = Array.from(iframesCollection);
+  iframes.forEach((x) => {
+    console.log(x);
+
+    if (x.loading != 'lazy') {
+      console.log("This iFrame does not seem to be loading lazily. Consider implementing this by changing the \"loading\" attribute to \"loading=lazy\".")
+    }
+  });
+}
+
 
 function getVideos() {
   console.log("=== Videos ===");
