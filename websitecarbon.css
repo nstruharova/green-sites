@@ -12,3 +12,8 @@
 .measurement{
   width:30ch;
 }
+
+.score0{
+  border: 10px;
+  border-color: #bff2ac;
+}

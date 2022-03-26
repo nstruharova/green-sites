@@ -1,10 +1,9 @@
 button {
-  /* height: 30px;
-  width: 30px; */
+  width: 12em;
   outline: none;
-  margin: 15px;
-  padding: 10px;
-  border-radius: 2px;
+  margin: 0.5em;
+  padding: 0.5em;
+  border:none;
   background-color: rgb(129, 209, 118);
 }
 
