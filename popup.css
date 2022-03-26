@@ -1,33 +1,37 @@
 button {
   width: 12em;
-  outline: none;
-  margin: 0.5em;
+  margin-left: auto;
+  margin-right:auto;
+  margin-top:0.1em;
+  margin-bottom:0.1em;
   padding: 0.5em;
-  border:none;
-  background-color: rgb(129, 209, 118);
-  float:center;
+  border: none;
+  background-color: #b4d5c0;
+  display: flex;
+  justify-content: center;
+  border-radius: 5px;
 }
 
-button.current {
-  box-shadow: 0 0 0 2px white,
-              0 0 0 4px black;
+.reset{
+  background-color:#8dc4a7;
 }
+
+button:hover{
+  opacity:0.7;
+}
+
 .title {
   width:100%;
+  margin: none;
   padding-top: 0.5em;
   padding-bottom: 0.5em;
   text-align: center;
-  background-color: #bff2ac;
-
-};
-.container{
-  width: 150ch;
+  color:#217566;
 }
+body{
+  background-color: #dfeae2
+}
+
 .measurement{
   width:30ch;
-}
-
-.score0{
-  border: 10px;
-  border-color: #bff2ac;
 }

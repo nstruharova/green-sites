@@ -77,19 +77,27 @@ Autoplay.addEventListener("click", async () => {
   console.log("Done: Check for autoplay video's")
 });
 
+Reset.addEventListener("click", async () => {
+  console.log("Start: Reset shadows")
+  let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+
+  chrome.scripting.executeScript({
+    target: { tabId: tab.id },
+    function: resetShadows,
+  });
+
+  console.log("Done: Reset shadows")
+});
+
 // Start website carbon
 function addtext(text){
   const p = document.createElement('p');
   p.textContent = text;
-  container.appendChild(p);
-  container.setAttribute('class', 'measurement');
+  app.appendChild(p);
+  app.setAttribute('class', 'measurement');
 }
 
-const app = document.getElementById('root');
-const container = document.createElement('div');
-container.setAttribute('class', 'container');
-
-app.appendChild(container);
+const app = document.getElementById('websitecarbon');
 
 chrome.tabs.query({
   'active': true,
@@ -209,6 +217,22 @@ function checkLazyLoading(){
 
   alertText = alertText + "\n Found " + nrAutoVideo + " automatically loaded video's and " + nrMeta + " video's where only the metadata is loaded. Please consider setting the preload attribute to 'none'.";
   window.alert(alertText);
+}
+
+function resetShadows(){
+  var imagesCollection = document.getElementsByTagName('img');
+  var images = Array.from(imagesCollection);
+
+  images.forEach((x) => {
+    x.style.filter = "none";
+  });
+
+  var videoCollection = document.getElementsByTagName('video');
+  var videos = Array.from(videoCollection);
+
+  videos.forEach((x) => {
+    x.style.filter = "none";
+  });
 }
 
 function checkAutoplay(){
