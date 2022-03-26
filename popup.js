@@ -125,65 +125,105 @@ request.send();
 function checkRendered(){
   var imagesCollection = document.getElementsByTagName('img');
   var images = Array.from(imagesCollection);
-  var allrendered = true;
   var alertText = "";
+  var nrImages = 0;
+
   images.forEach((x) => {
     if(x.clientWidth == 0 || x.clientHeight == 0){
       alertText = alertText + "\n"+ x.src;
+      nrImages++;
     }
   });
-  window.alert("The following images are not rendered:\n"+ alertText);
+  
+  if(alertText == ""){
+   window.alert("No unrendered images found."); 
+  }else{
+    window.alert(nrImages + " images are not rendered. The sources of these images are: \n"+ alertText);
+  }
 }
 
 function checkLarge(){
   var imagesCollection = document.getElementsByTagName('img');
   var images = Array.from(imagesCollection);
+  var nrImages=0;
+  
   images.forEach((x) => {
     if(x.naturalWidth > 0 && x.naturalHeight>0 && (x.clientWidth<x.clientHeight || x.clientHeight < x.naturalHeight)){
       x.style.filter = "opacity(0.7) drop-shadow(0.3em 0.3em 0 #ed6039)";
+      nrImages++;
     }
   });
+  
+  window.alert("Found " + nrImages + " images that are saved with a larger width or height than they are rendered. Please consider saving these files with smaller dimensions.");
 }
 
 function checkFileFormats(){
   var imagesCollection = document.getElementsByTagName('img');
   var images = Array.from(imagesCollection);
+  var nrImages=0;
+
   images.forEach((x) => {
-    if(src.includes(".jpg")||src.includes(".jpeg")||src.includes(".png")||src.includes(".svg")||src.includes(".gif")){
+    const src = x.src;
+    if(src.includes(".jpg")||src.includes(".jpeg")||src.includes(".png")||src.includes(".svg")){
       x.style.filter = "opacity(0.7) drop-shadow(0.3em 0.3em 0 #ed6039)";
+      nrImages++;
     }
   });
+
+  window.alert("Found " + nrImages + " images in JPG, PNG or SVG format. Please consider using the AVIF format.");
 }
 
 function checkLazyLoading(){
   var imagesCollection = document.getElementsByTagName('img');
   var images = Array.from(imagesCollection);
+  var nrEager = 0;
+  var nrAutoImage = 0;
+
   images.forEach((x) => {
     if(x.loading == "eager"){
       x.style.filter = "opacity(0.7) drop-shadow(0.3em 0.3em 0 #ed6039)"; //red
+      nrEager++;
     }else if (x.loading == "auto"){
       x.style.filter = "opacity(0.7) drop-shadow(0.3em 0.3em 0 #f0db3c)"; //yellow
+      nrAutoImage++;
     }
+    
   });
+
+  var alertText = "Found "+ nrEager + "eagerly loaded images and " + nrAutoImage + " images using the default browser settings. Please consider specifying lazy loading."
 
   var videoCollection = document.getElementsByTagName('video');
   var videos = Array.from(videoCollection);
+  let nrMeta = 0;
+  let nrAutoVideo = 0;
+
   videos.forEach((x) => {
     if(x.preload == "metadata"){
       x.style.filter = "opacity(0.7) drop-shadow(0.3em 0.3em 0 #f0db3c)"; //yellow
-    } else if (x.preload != "none"){
+      nrMeta++;
+    } else if (x.preload == "auto"){
       x.style.filter = "opacity(0.7) drop-shadow(0.3em 0.3em 0 #ed6039)"; //red
+      nrAutoVideo++;
     }
   });
+
+  alertText = alertText + "\n Found " + nrAutoVideo + " automatically loaded video's and " + nrMeta + " video's where only the metadata is loaded. Please consider setting the preload attribute to 'none'.";
+  window.alert(alertText);
 }
 
 function checkAutoplay(){
+  var videoCollection = document.getElementsByTagName('video');
   var videos = Array.from(videoCollection);
+  var nrVideos = 0;
+
   videos.forEach((x) => {
     if(x.autoplay == true){
       x.style.filter = "opacity(0.7) drop-shadow(0.3em 0.3em 0 #ed6039)";
+      nrVideos++;
     }
   });
+
+  window.alert("Found " + nrVideos + " video's with autoplay. Please consider turning off autoplay.")
 }
 
 function getImages() {
