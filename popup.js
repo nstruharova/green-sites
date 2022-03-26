@@ -1,11 +1,6 @@
 showConsumption.addEventListener("click", async () => {
-    console.log('yeet');
+    console.log('Start all tests');
     let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-
-    // chrome.scripting.executeScript({
-    //   target: { tabId: tab.id },
-    //   function: setPageBackgroundColor,
-    // });
 
     chrome.scripting.executeScript({
       target: { tabId: tab.id, allFrames: true },
@@ -19,23 +14,8 @@ showConsumption.addEventListener("click", async () => {
       function: getVideos,
     });
 
-    chrome.scripting.executeScript({
-      target: { tabId: tab.id },
-      function: changeImages,
-    });
-
-    chrome.scripting.executeScript({
-      target: { tabId: tab.id, allFrames: true },
-      function: getTitle,
-    },
-      (injectionResults) => {
-        for (const frameResult of injectionResults)
-          console.log('Frame Title: ' + frameResult.result);
-      });
+    console.log('End all tests');
   });
-  function getTitle() {
-    return document.title;
-  }
 
 Rendered.addEventListener("click", async () => {
   console.log("Start: Check rendered images")
@@ -97,6 +77,7 @@ Autoplay.addEventListener("click", async () => {
   console.log("Done: Check for autoplay video's")
 });
 
+// Start website carbon
 function addtext(text){
   const p = document.createElement('p');
   p.textContent = text;
@@ -139,16 +120,7 @@ chrome.tabs.query({
 
 request.send();
 });
-
-function readHTML() {
-    console.log(document.body);
-    console.log('\nyeetssss');
-}
-
-function getImageDimentions(images) {
-  console.log("get image dimentions")
-
-}
+//End website carbon
 
 function checkRendered(){
   var imagesCollection = document.getElementsByTagName('img');
@@ -214,13 +186,6 @@ function checkAutoplay(){
   });
 }
 
-function getImages2(){
-  console.log("=== Images 2===");
-    var imagesCollection = document.getElementsByTagName('img');
-    var images = Array.from(imagesCollection);
-    console.log("done"+images.length)
-    return images;
-}
 function getImages() {
     console.log("=== Images ===");
     var imagesCollection = document.getElementsByTagName('img');
@@ -324,8 +289,4 @@ function getVideos() {
     }
   });
   console.log("There are " + videos.length + " videos");
-}
-
-function changeImages(){
-  document.getElementById
 }
