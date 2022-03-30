@@ -60,6 +60,30 @@ FileFormats.addEventListener("click", async () => {
   console.log("Done: Check file formats images.")
 });
 
+Autoplay.addEventListener("click", async () => {
+  console.log("Start: Check for autoplay video's")
+  let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+
+  chrome.scripting.executeScript({
+    target: { tabId: tab.id },
+    function: checkAutoplay,
+  });
+
+  console.log("Done: Check for autoplay video's")
+});
+
+Autoplay.addEventListener("click", async () => {
+  console.log("Start: Check for external fonts")
+  let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+
+  chrome.scripting.executeScript({
+    target: { tabId: tab.id },
+    function: che,
+  });
+
+  console.log("Done: Check for autoplay video's")
+});
+
 LazyLoading.addEventListener("click", async () => {
   console.log("Start: Check for lazy loading")
   let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
@@ -72,17 +96,6 @@ LazyLoading.addEventListener("click", async () => {
   console.log("Done: Check for lazy loading")
 });
 
-Autoplay.addEventListener("click", async () => {
-  console.log("Start: Check for autoplay video's")
-  let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-
-  chrome.scripting.executeScript({
-    target: { tabId: tab.id },
-    function: checkAutoplay,
-  });
-
-  console.log("Done: Check for autoplay video's")
-});
 
 Reset.addEventListener("click", async () => {
   console.log("Start: Reset shadows")
@@ -188,6 +201,45 @@ function checkFileFormats(){
   window.alert("Found " + nrImages + " images in JPG, PNG or SVG format. Please consider using the AVIF format.");
 }
 
+function checkAutoplay(){
+  var videoCollection = document.getElementsByTagName('video');
+  var videos = Array.from(videoCollection);
+  var nrVideos = 0;
+
+  videos.forEach((x) => {
+    if(x.autoplay == true){
+      x.style.filter = "opacity(0.7) drop-shadow(0.3em 0.3em 0 #ed6039)";
+      nrVideos++;
+    }
+  });
+
+  window.alert("Found " + nrVideos + " video's with autoplay. Please consider turning off autoplay.")
+}
+
+function checkFonts() {
+  console.log("=== Text ===");
+  const systemFonts = new Set([
+    // Windows 10
+  'Arial', 'Arial Black', 'Bahnschrift', 'Calibri', 'Cambria', 'Cambria Math', 'Candara', 'Comic Sans MS', 'Consolas', 'Constantia', 'Corbel', 'Courier New', 'Ebrima', 'Franklin Gothic Medium', 'Gabriola', 'Gadugi', 'Georgia', 'HoloLens MDL2 Assets', 'Impact', 'Ink Free', 'Javanese Text', 'Leelawadee UI', 'Lucida Console', 'Lucida Sans Unicode', 'Malgun Gothic', 'Marlett', 'Microsoft Himalaya', 'Microsoft JhengHei', 'Microsoft New Tai Lue', 'Microsoft PhagsPa', 'Microsoft Sans Serif', 'Microsoft Tai Le', 'Microsoft YaHei', 'Microsoft Yi Baiti', 'MingLiU-ExtB', 'Mongolian Baiti', 'MS Gothic', 'MV Boli', 'Myanmar Text', 'Nirmala UI', 'Palatino Linotype', 'Segoe MDL2 Assets', 'Segoe Print', 'Segoe Script', 'Segoe UI', 'Segoe UI Historic', 'Segoe UI Emoji', 'Segoe UI Symbol', 'SimSun', 'Sitka', 'Sylfaen', 'Symbol', 'Tahoma', 'Times New Roman', 'Trebuchet MS', 'Verdana', 'Webdings', 'Wingdings', 'Yu Gothic',
+    // macOS
+    'American Typewriter', 'Andale Mono', 'Arial', 'Arial Black', 'Arial Narrow', 'Arial Rounded MT Bold', 'Arial Unicode MS', 'Avenir', 'Avenir Next', 'Avenir Next Condensed', 'Baskerville', 'Big Caslon', 'Bodoni 72', 'Bodoni 72 Oldstyle', 'Bodoni 72 Smallcaps', 'Bradley Hand', 'Brush Script MT', 'Chalkboard', 'Chalkboard SE', 'Chalkduster', 'Charter', 'Cochin', 'Comic Sans MS', 'Copperplate', 'Courier', 'Courier New', 'Didot', 'DIN Alternate', 'DIN Condensed', 'Futura', 'Geneva', 'Georgia', 'Gill Sans', 'Helvetica', 'Helvetica Neue', 'Herculanum', 'Hoefler Text', 'Impact', 'Lucida Grande', 'Luminari', 'Marker Felt', 'Menlo', 'Microsoft Sans Serif', 'Monaco', 'Noteworthy', 'Optima', 'Palatino', 'Papyrus', 'Phosphate', 'Rockwell', 'Savoye LET', 'SignPainter', 'Skia', 'Snell Roundhand', 'Tahoma', 'Times', 'Times New Roman', 'Trattatello', 'Trebuchet MS', 'Verdana', 'Zapfino',
+  ].sort());
+
+  const it = document.fonts.entries();
+  let font = it.next();
+  let fontArr = []
+
+  // Check used fonts , if this is not a standard font display a message.
+  while (!font.done) {
+    if (!(font.value[0].family in systemFonts)) {
+      fontArr.push(font.value[0].family);
+    }
+    font = it.next();
+  }
+
+  [... new Set(fontArr)].forEach(f => console.log(f + " font is not a system font. Consider using pre-installed system fonts for decreased energy consumption."));
+}
+
 function checkLazyLoading(){
   var imagesCollection = document.getElementsByTagName('img');
   var images = Array.from(imagesCollection);
@@ -226,28 +278,6 @@ function checkLazyLoading(){
   window.alert(alertText);
 }
 
-function checkLazyLoading() {
-  var documentHeight = document.body.scrollHeight;
-  var windowHeight = window.innerHeight;
-
-  let heightRatio = documentHeight / windowHeight
-
-  console.log(heightRatio)
-  if (heightRatio > 1.0) {
-    console.log("Since the content of your page is about" + Math.round(heightRatio) + "-times longer than your window height, it overflows. Consider lazy loading for your content.")
-  }
-
-  let iframesCollection = document.getElementsByTagName('iframe');
-  var iframes = Array.from(iframesCollection);
-  iframes.forEach((x) => {
-    console.log(x);
-
-    if (x.loading != 'lazy') {
-      console.log("This iFrame does not seem to be loading lazily. Consider implementing this by changing the \"loading\" attribute to \"loading=lazy\".")
-    }
-  });
-}
-
 function resetShadows(){
   var imagesCollection = document.getElementsByTagName('img');
   var images = Array.from(imagesCollection);
@@ -262,21 +292,6 @@ function resetShadows(){
   videos.forEach((x) => {
     x.style.filter = "none";
   });
-}
-
-function checkAutoplay(){
-  var videoCollection = document.getElementsByTagName('video');
-  var videos = Array.from(videoCollection);
-  var nrVideos = 0;
-
-  videos.forEach((x) => {
-    if(x.autoplay == true){
-      x.style.filter = "opacity(0.7) drop-shadow(0.3em 0.3em 0 #ed6039)";
-      nrVideos++;
-    }
-  });
-
-  window.alert("Found " + nrVideos + " video's with autoplay. Please consider turning off autoplay.")
 }
 
 function getImages() {
@@ -366,29 +381,6 @@ function getImages() {
     return images;
 }
 
-function checkLazyLoading() {
-  var documentHeight = document.body.scrollHeight;
-  var windowHeight = window.innerHeight;
-
-  let heightRatio = documentHeight / windowHeight;
-
-  console.log(heightRatio)
-  if (heightRatio > 1.0) {
-    console.log("Since the content of your page is about" + Math.round(heightRatio) + "-times longer than your window height, it overflows. Consider lazy loading for your content.")
-  }
-
-  let iframesCollection = document.getElementsByTagName('iframe');
-  var iframes = Array.from(iframesCollection);
-  iframes.forEach((x) => {
-    console.log(x);
-
-    if (x.loading != 'lazy') {
-      console.log("This iFrame does not seem to be loading lazily. Consider implementing this by changing the \"loading\" attribute to \"loading=lazy\".")
-    }
-  });
-}
-
-
 function getVideos() {
   console.log("=== Videos ===");
   var videoCollection = document.getElementsByTagName('video');
@@ -405,28 +397,4 @@ function getVideos() {
     }
   });
   console.log("There are " + videos.length + " videos");
-}
-
-function getText() {
-  console.log("=== Text ===");
-  const systemFonts = new Set([
-    // Windows 10
-  'Arial', 'Arial Black', 'Bahnschrift', 'Calibri', 'Cambria', 'Cambria Math', 'Candara', 'Comic Sans MS', 'Consolas', 'Constantia', 'Corbel', 'Courier New', 'Ebrima', 'Franklin Gothic Medium', 'Gabriola', 'Gadugi', 'Georgia', 'HoloLens MDL2 Assets', 'Impact', 'Ink Free', 'Javanese Text', 'Leelawadee UI', 'Lucida Console', 'Lucida Sans Unicode', 'Malgun Gothic', 'Marlett', 'Microsoft Himalaya', 'Microsoft JhengHei', 'Microsoft New Tai Lue', 'Microsoft PhagsPa', 'Microsoft Sans Serif', 'Microsoft Tai Le', 'Microsoft YaHei', 'Microsoft Yi Baiti', 'MingLiU-ExtB', 'Mongolian Baiti', 'MS Gothic', 'MV Boli', 'Myanmar Text', 'Nirmala UI', 'Palatino Linotype', 'Segoe MDL2 Assets', 'Segoe Print', 'Segoe Script', 'Segoe UI', 'Segoe UI Historic', 'Segoe UI Emoji', 'Segoe UI Symbol', 'SimSun', 'Sitka', 'Sylfaen', 'Symbol', 'Tahoma', 'Times New Roman', 'Trebuchet MS', 'Verdana', 'Webdings', 'Wingdings', 'Yu Gothic',
-    // macOS
-    'American Typewriter', 'Andale Mono', 'Arial', 'Arial Black', 'Arial Narrow', 'Arial Rounded MT Bold', 'Arial Unicode MS', 'Avenir', 'Avenir Next', 'Avenir Next Condensed', 'Baskerville', 'Big Caslon', 'Bodoni 72', 'Bodoni 72 Oldstyle', 'Bodoni 72 Smallcaps', 'Bradley Hand', 'Brush Script MT', 'Chalkboard', 'Chalkboard SE', 'Chalkduster', 'Charter', 'Cochin', 'Comic Sans MS', 'Copperplate', 'Courier', 'Courier New', 'Didot', 'DIN Alternate', 'DIN Condensed', 'Futura', 'Geneva', 'Georgia', 'Gill Sans', 'Helvetica', 'Helvetica Neue', 'Herculanum', 'Hoefler Text', 'Impact', 'Lucida Grande', 'Luminari', 'Marker Felt', 'Menlo', 'Microsoft Sans Serif', 'Monaco', 'Noteworthy', 'Optima', 'Palatino', 'Papyrus', 'Phosphate', 'Rockwell', 'Savoye LET', 'SignPainter', 'Skia', 'Snell Roundhand', 'Tahoma', 'Times', 'Times New Roman', 'Trattatello', 'Trebuchet MS', 'Verdana', 'Zapfino',
-  ].sort());
-
-  const it = document.fonts.entries();
-  let font = it.next();
-  let fontArr = []
-
-  // Check used fonts , if this is not a standard font display a message.
-  while (!font.done) {
-    if (!(font.value[0].family in systemFonts)) {
-      fontArr.push(font.value[0].family);
-    }
-    font = it.next();
-  }
-
-  [... new Set(fontArr)].forEach(f => console.log(f + " font is not a system font. Consider using pre-installed system fonts for decreased energy consumption."));
 }
