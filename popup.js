@@ -1,14 +1,3 @@
-showConsumption.addEventListener("click", async () => {
-    console.log('Start all tests');
-    let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-    console.log('End all tests');
-
-    chrome.scripting.executeScript({
-      target: { tabId: tab.id },
-      function: checkLazyLoadingIFrame,
-    });
-});
-
 Rendered.addEventListener("click", async () => {
   console.log("Start: Check rendered images")
   let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
