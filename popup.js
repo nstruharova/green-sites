@@ -1,3 +1,27 @@
+// showConsumption.addEventListener("click", async () => {
+//   console.log('Start all tests');
+//   let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+
+//   chrome.scripting.executeScript({
+//     target: { tabId: tab.id, allFrames: true },
+//     function: getImages,
+//   }, (images) => {
+//     console.log(images)
+//   });
+
+//   chrome.scripting.executeScript({
+//     target: { tabId: tab.id },
+//     function: getVideos,
+//   });
+
+//   console.log('End all tests');
+
+//   chrome.scripting.executeScript({
+//     target: { tabId: tab.id },
+//     function: checkLazyLoading,
+//   });
+// });
+
 Rendered.addEventListener("click", async () => {
   console.log("Start: Check rendered images")
   let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
@@ -64,7 +88,7 @@ LazyLoading.addEventListener("click", async () => {
 
   chrome.scripting.executeScript({
     target: { tabId: tab.id },
-    function: checkLazyLoadingVideo,
+    function: checkLazyLoading,
   });
 
   console.log("Done: Check for lazy loading")
@@ -92,7 +116,7 @@ function addtext(text) {
 }
 
 const app = document.getElementById('websitecarbon');
-var message = document.getElementById('message');
+
 chrome.tabs.query({
   'active': true,
   'windowId': chrome.windows.WINDOW_ID_CURRENT
@@ -100,8 +124,9 @@ chrome.tabs.query({
   url = "https://api.websitecarbon.com/site?url=" + tabs[0].url
   var request = new XMLHttpRequest();
   request.open('GET', url, true);
+
   request.onload = function () {
-    message.textContent= "Results";
+
     // Begin accessing JSON data here
     var data = JSON.parse(this.response);
     console.log("trying here")
@@ -216,11 +241,7 @@ function checkFonts() {
   // .forEach(f => console.log(f + " font is not a system font. Consider using pre-installed system fonts for decreased energy consumption."));
 
   if (fontArr.length > 0) {
-    alertText = "Found " + fontNr + " external fonts." +
-    ` 
-      Consider using pre-installed system fonts for decreased energy consumption. 
-      When using non-native fonts, the WOFF/WOFF2 font formats offer comppression and are thus more energy efficient.\n\nFonts found:";
-    `
+    alertText = "Found " + fontNr + " external fonts. Consider using pre-installed system fonts for decreased energy consumption. When using non-native fonts, the WOFF/WOFF2 font formats offer compression which make them more energy efficient.\n\nFonts found:";
     fontArr.forEach(f => alertText += "\n- " + f);
   }
   else {
@@ -229,7 +250,7 @@ function checkFonts() {
   window.alert(alertText);
 }
 
-function checkLazyLoadingVideo(){
+function checkLazyLoading() {
   var imagesCollection = document.getElementsByTagName('img');
   var images = Array.from(imagesCollection);
   var nrEager = 0;
@@ -267,29 +288,7 @@ function checkLazyLoadingVideo(){
   window.alert(alertText);
 }
 
-function checkLazyLoadingIFrame() {
-  var documentHeight = document.body.scrollHeight;
-  var windowHeight = window.innerHeight;
-
-  let heightRatio = documentHeight / windowHeight
-
-  console.log(heightRatio)
-  if (heightRatio > 1.0) {
-    console.log("Since the content of your page is about" + Math.round(heightRatio) + "-times longer than your window height, it overflows. Consider lazy loading for your content.")
-  }
-
-  let iframesCollection = document.getElementsByTagName('iframe');
-  var iframes = Array.from(iframesCollection);
-  iframes.forEach((x) => {
-    console.log(x);
-
-    if (x.loading != 'lazy') {
-      console.log("This iFrame does not seem to be loading lazily. Consider implementing this by changing the \"loading\" attribute to \"loading=lazy\".")
-    }
-  });
-}
-
-function resetShadows(){
+function resetShadows() {
   var imagesCollection = document.getElementsByTagName('img');
   var images = Array.from(imagesCollection);
 
@@ -305,26 +304,107 @@ function resetShadows(){
   });
 }
 
-function getText() {
-  console.log("=== Text ===");
-  const systemFonts = new Set([
-    // Windows 10
-  'Arial', 'Arial Black', 'Bahnschrift', 'Calibri', 'Cambria', 'Cambria Math', 'Candara', 'Comic Sans MS', 'Consolas', 'Constantia', 'Corbel', 'Courier New', 'Ebrima', 'Franklin Gothic Medium', 'Gabriola', 'Gadugi', 'Georgia', 'HoloLens MDL2 Assets', 'Impact', 'Ink Free', 'Javanese Text', 'Leelawadee UI', 'Lucida Console', 'Lucida Sans Unicode', 'Malgun Gothic', 'Marlett', 'Microsoft Himalaya', 'Microsoft JhengHei', 'Microsoft New Tai Lue', 'Microsoft PhagsPa', 'Microsoft Sans Serif', 'Microsoft Tai Le', 'Microsoft YaHei', 'Microsoft Yi Baiti', 'MingLiU-ExtB', 'Mongolian Baiti', 'MS Gothic', 'MV Boli', 'Myanmar Text', 'Nirmala UI', 'Palatino Linotype', 'Segoe MDL2 Assets', 'Segoe Print', 'Segoe Script', 'Segoe UI', 'Segoe UI Historic', 'Segoe UI Emoji', 'Segoe UI Symbol', 'SimSun', 'Sitka', 'Sylfaen', 'Symbol', 'Tahoma', 'Times New Roman', 'Trebuchet MS', 'Verdana', 'Webdings', 'Wingdings', 'Yu Gothic',
-    // macOS
-    'American Typewriter', 'Andale Mono', 'Arial', 'Arial Black', 'Arial Narrow', 'Arial Rounded MT Bold', 'Arial Unicode MS', 'Avenir', 'Avenir Next', 'Avenir Next Condensed', 'Baskerville', 'Big Caslon', 'Bodoni 72', 'Bodoni 72 Oldstyle', 'Bodoni 72 Smallcaps', 'Bradley Hand', 'Brush Script MT', 'Chalkboard', 'Chalkboard SE', 'Chalkduster', 'Charter', 'Cochin', 'Comic Sans MS', 'Copperplate', 'Courier', 'Courier New', 'Didot', 'DIN Alternate', 'DIN Condensed', 'Futura', 'Geneva', 'Georgia', 'Gill Sans', 'Helvetica', 'Helvetica Neue', 'Herculanum', 'Hoefler Text', 'Impact', 'Lucida Grande', 'Luminari', 'Marker Felt', 'Menlo', 'Microsoft Sans Serif', 'Monaco', 'Noteworthy', 'Optima', 'Palatino', 'Papyrus', 'Phosphate', 'Rockwell', 'Savoye LET', 'SignPainter', 'Skia', 'Snell Roundhand', 'Tahoma', 'Times', 'Times New Roman', 'Trattatello', 'Trebuchet MS', 'Verdana', 'Zapfino',
-  ].sort());
+function getImages() {
+  console.log("=== Images ===");
+  var imagesCollection = document.getElementsByTagName('img');
+  var images = Array.from(imagesCollection);
+  images.forEach((x) => {
+    console.log(x);
+    var score = 0;
+    // Check dimensions
+    var clientwidth = x.clientWidth;
+    var clientheight = x.clientHeight;
+    var naturalwidth = x.naturalWidth;
+    var naturalheight = x.naturalHeight;
 
-  const it = document.fonts.values();
-  let font = it.next();
-  let fontArr = []
-
-  // Check used fonts , if this is not a standard font display a message.
-  while (!font.done) {
-    if (!(font.family in systemFonts)) {
-      fontArr.push(font.family);
+    if (clientwidth == 0 || clientheight == 0) {
+      console.log("This image isn't rendered. Check why this image isn't rendered. Possibly you have applied lazy loading without setting a width or height, which is bad practise.")
+      score++;
     }
-    font = it.next();
-  }
+    if (clientwidth > 400 || clientheight > 400) {
+      console.log("This image is " + clientwidth + "x" + clientheight + "px, we consider this a large image. Maybe this image could be smaller?");
+      score++;
+    }
+    if (naturalwidth > 0 && naturalheight > 0 && (clientwidth < clientheight || clientheight < naturalheight)) {
+      console.log("This image is saved as a " + naturalwidth + "x" + naturalheight + "px image, but rendered as a " + clientwidth + "x" + clientheight + "px image. Consider saving the file with smaller dimensions. ");
+      score++;
+    }
 
-  [... new Set(fontArr)].forEach(f => console.log(f + " font is not a system font. Consider using pre-installed system fonts for decreased energy consumption."));
+    // Check lazy loading
+    if (x.loading == 'eager') {
+      console.log("This image is always loaded, regardless of whether it is shown. Consider lazy loading.");
+      score++;
+    }
+
+    // Check file format
+    var src = x.src;
+    if (src.includes(".png") || src.includes(".svg")) {
+      console.log("PNG and SVG should only be used if the precision of the file is very importent. Perhaps a .jpg file would suffice here?");
+      score++;
+    }
+    if (src.includes(".jpg") || src.includes(".jpeg") || src.includes(".png") || src.includes(".svg") || src.includes(".gif")) {
+      console.log("Consider using the .avif file format.");
+      score++;
+    }
+    const popup = document.createElement('div');
+    const p = document.createElement('p');
+    p.textContent = "testpopup";
+    popup.appendChild(p);
+
+    switch (score) {
+      case 0:
+        console.log("green")
+        x.style.filter = "opacity(0.7) drop-shadow(0.5em 0.5em 5 #5beb34)"
+        break;
+      case 1:
+        console.log("quite green")
+        x.style.filter = "opacity(0.7) drop-shadow(0.5em 0.5em 0 #daf77c)"
+        break;
+      case 2:
+        console.log("yellow")
+        x.style.filter = "opacity(0.7) drop-shadow(0.5em 0.5em 0 #f0db3c)"
+        break;
+      case 3:
+        console.log("dirty yellow")
+        x.style.filter = "opacity(0.7) drop-shadow(0.5em 0.5em 0 #f0b73c)"
+        break;
+      case 4:
+        console.log("orange")
+
+        x.style.filter = "opacity(0.7) drop-shadow(0.5em 0.5em 0 #f2913d)"
+        x.appendChild(popup)
+        break;
+      case 5:
+        console.log("red")
+        x.style.filter = "opacity(0.7) drop-shadow(0.5em 0.5em 0 #ed6039)"
+        break;
+      case 6:
+        console.log("dead read");
+        x.style.filter = "opacity(0.7) drop-shadow(0.5em 0.5em 0 #ed3939)"
+        break;
+      default:
+    }
+
+
+  });
+  console.log("There are " + images.length + " images");
+  return images;
+}
+
+function getVideos() {
+  console.log("=== Videos ===");
+  var videoCollection = document.getElementsByTagName('video');
+  var videos = Array.from(videoCollection);
+  videos.forEach((x) => {
+    console.log(x)
+    if (x.autoplay == true) {
+      console.log("Consider switching of autoplay")
+    }
+    if (x.preload == "metadata") {
+      console.log("Consider not loading the metadata, you won't see a preview, but you download less data this way.")
+    } else if (x.preload != "none") {
+      console.log("Set the preload property to none to avoid unnecesary energy use.")
+    }
+  });
+  console.log("There are " + videos.length + " videos");
 }
