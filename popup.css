@@ -10,6 +10,7 @@ button {
   display: flex;
   justify-content: center;
   border-radius: 5px;
+  cursor: pointer;
 }
 
 .reset{
@@ -35,3 +36,25 @@ body{
 .measurement{
   width:30ch;
 }
+
+.message{
+  text-align: center;
+  font-weight:bold ;
+}
+
+.moreinfo{
+  background: none;
+  border-style: solid;
+  border-width: 2px;
+  border-color: #217566;
+  border-radius: 5px;
+  color: #217566;
+  padding: 0.5em 0.5em;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+  margin-left:auto;
+  margin-right:auto;
+}
+

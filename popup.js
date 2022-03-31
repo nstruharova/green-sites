@@ -92,7 +92,7 @@ function addtext(text) {
 }
 
 const app = document.getElementById('websitecarbon');
-
+var message = document.getElementById('message');
 chrome.tabs.query({
   'active': true,
   'windowId': chrome.windows.WINDOW_ID_CURRENT
@@ -100,9 +100,8 @@ chrome.tabs.query({
   url = "https://api.websitecarbon.com/site?url=" + tabs[0].url
   var request = new XMLHttpRequest();
   request.open('GET', url, true);
-
   request.onload = function () {
-
+    message.textContent= "Results";
     // Begin accessing JSON data here
     var data = JSON.parse(this.response);
     console.log("trying here")
