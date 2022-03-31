@@ -243,7 +243,11 @@ function checkFonts() {
   // .forEach(f => console.log(f + " font is not a system font. Consider using pre-installed system fonts for decreased energy consumption."));
 
   if (fontArr.length > 0) {
-    alertText = "Found " + fontNr + " external fonts. Consider using pre-installed system fonts for decreased energy consumption.\n\nFonts found:";
+    alertText = "Found " + fontNr + " external fonts." +
+    ` 
+      Consider using pre-installed system fonts for decreased energy consumption. 
+      When using non-native fonts, the WOFF/WOFF2 font formats offer comppression and are thus more energy efficient.\n\nFonts found:";
+    `
     fontArr.forEach(f => alertText += "\n- " + f);
   }
   else {
