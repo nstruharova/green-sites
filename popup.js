@@ -158,11 +158,49 @@ function checkLarge() {
   window.alert("Found " + nrImages + " images that are saved with a larger width or height than they are rendered. Please consider saving these files with smaller dimensions.");
 }
 
+function detectCdn() {
+  // Detecting if the HTTPS response is served from a CDN
+  var result = CdnDetector.detectFromHostname(location.hostname);
+  if (result == null) {
+    console.log("Your website is currently not being loaded from a CDN. Consider using a content delivery network.")
+  } else {
+    console.log("Your website is loaded from a CDN. No problems were found.")
+  }
+  // Detecting if elements are served from a CDN
+  var scripts = Array.from(document.getElementsByTagName('script'));
+  var images = Array.from(document.getElementsByTagName('img'));
+  var iframes = Array.from(document.getElementsByTagName('iframe'));
+  var videos = Array.from(document.getElementsByTagName('video'));
+  for (let i = 0; i < scripts.length; i++) {
+    if (scripts.length > 0 && !scripts[i].src.includes("cdn")) {
+      console.log("You are currently not loading all your scripts using CDN. Consider using a content delivery network.")
+      break;
+    }
+  };
+  for (let i = 0; i < images.length; i++) {
+    if (images.length > 0 && !images[i].src.includes("cdn")) {
+      console.log("You are currently not loading all your images using CDN. Consider using a content delivery network.")
+      break;
+    }
+  };
+  for (let i = 0; i < iframes.length; i++) {
+    if (iframes.length > 0 && !iframes[i].src.includes("cdn")) {
+      console.log("You are currently not loading all your iFrames using CDN. Consider using a content delivery network.")
+      break;
+    }
+  };
+  for (let i = 0; i < videos.length; i++) {
+    if (videos.length > 0 && !scripts[i].src.includes("cdn")) {
+      console.log("You are currently not loading all your videos using CDN. Consider using a content delivery network.")
+      break;
+    }
+  };
+}
+
 function checkFileFormats() {
   var imagesCollection = document.getElementsByTagName('img');
   var images = Array.from(imagesCollection);
   var nrImages = 0;
-
   images.forEach((x) => {
     const src = x.src;
     if (src.includes(".jpg") || src.includes(".jpeg") || src.includes(".png") || src.includes(".svg")) {
@@ -217,8 +255,8 @@ function checkFonts() {
 
   if (fontArr.length > 0) {
     alertText = "Found " + fontNr + " external fonts." +
-    ` 
-      Consider using pre-installed system fonts for decreased energy consumption. 
+    `
+      Consider using pre-installed system fonts for decreased energy consumption.
       When using non-native fonts, the WOFF/WOFF2 font formats offer comppression and are thus more energy efficient.\n\nFonts found:";
     `
     fontArr.forEach(f => alertText += "\n- " + f);
