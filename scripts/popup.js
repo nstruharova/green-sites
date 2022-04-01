@@ -164,7 +164,7 @@ chrome.tabs.query({
     addtext(`CO2: ${datatotal} grams \n\t`)
     addtext(`From grid: ${datagrid} grams`)
     addtext(`From renewable: ${datarenewable} grams`)
-
+    document.getElementById('message').remove();
   }
 
   request.send();
@@ -316,7 +316,6 @@ function checkFonts() {
   let fontNr = fontArr.length;
 
   let alertText = ""
-  // .forEach(f => console.log(f + " font is not a system font. Consider using pre-installed system fonts for decreased energy consumption."));
 
   if (fontArr.length > 0) {
     alertText = "Found " + fontNr + " external fonts. Consider using pre-installed system fonts for decreased energy consumption. When using non-native fonts, the WOFF/WOFF2 font formats offer compression which make them more energy efficient.\n\nFonts found:";
@@ -345,7 +344,7 @@ function checkLazyLoading() {
 
   });
 
-  var alertText = "Found " + nrEager + "eagerly loaded images and " + nrAutoImage + " images using the default browser settings. Please consider specifying lazy loading."
+  var alertText = "Found " + nrEager + " eagerly loaded images and " + nrAutoImage + " images using the default browser settings. Please consider specifying lazy loading."
 
   var videoCollection = document.getElementsByTagName('video');
   var videos = Array.from(videoCollection);
