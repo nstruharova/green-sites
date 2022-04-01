@@ -23,7 +23,7 @@
 // });
 
 Rendered.addEventListener("click", async () => {
-  console.log("Start: Check rendered images")
+  console.log("Start: Check rendered images");
   let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
 
   chrome.scripting.executeScript({
@@ -31,11 +31,11 @@ Rendered.addEventListener("click", async () => {
     function: checkRendered,
   });
 
-  console.log("Done: Check rendered images")
+  console.log("Done: Check rendered images");
 });
 
 Large.addEventListener("click", async () => {
-  console.log("Start: Check for images rendered larger than they are saved.")
+  console.log("Start: Check for images rendered larger than they are saved.");
   let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
 
   chrome.scripting.executeScript({
@@ -43,11 +43,11 @@ Large.addEventListener("click", async () => {
     function: checkLarge,
   });
 
-  console.log("Done: Check for images rendered larger than they are saved.")
+  console.log("Done: Check for images rendered larger than they are saved.");
 });
 
 FileFormats.addEventListener("click", async () => {
-  console.log("Start: Check file formats images.")
+  console.log("Start: Check file formats images.");
   let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
 
   chrome.scripting.executeScript({
@@ -55,11 +55,11 @@ FileFormats.addEventListener("click", async () => {
     function: checkFileFormats,
   });
 
-  console.log("Done: Check file formats images.")
+  console.log("Done: Check file formats images.");
 });
 
 Autoplay.addEventListener("click", async () => {
-  console.log("Start: Check for autoplay video's")
+  console.log("Start: Check for autoplay video's");
   let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
 
   chrome.scripting.executeScript({
@@ -67,7 +67,7 @@ Autoplay.addEventListener("click", async () => {
     function: checkAutoplay,
   });
 
-  console.log("Done: Check for autoplay video's")
+  console.log("Done: Check for autoplay video's");
 });
 
 Fonts.addEventListener("click", async () => {
@@ -79,7 +79,7 @@ Fonts.addEventListener("click", async () => {
     function: checkFonts,
   });
 
-  console.log("Done: Check for external fonts")
+  console.log("Done: Check for external fonts");
 });
 
 LazyLoading.addEventListener("click", async () => {
@@ -91,12 +91,35 @@ LazyLoading.addEventListener("click", async () => {
     function: checkLazyLoading,
   });
 
-  console.log("Done: Check for lazy loading")
+  console.log("Done: Check for lazy loading");
 });
 
+WebsiteCdn.addEventListener("click", async () => {
+  console.log("Start: Check for loading the website from a CDN");
+  let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+
+  chrome.scripting.executeScript({
+    target: { tabId: tab.id },
+    function: checkWebsiteCdn,
+  });
+
+  console.log("Done: Check for loading the website from a CDN");
+});
+
+ElementCdn.addEventListener("click", async () => {
+  console.log("Start: Check for loading the elements from a CDN");
+  let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+
+  chrome.scripting.executeScript({
+    target: { tabId: tab.id },
+    function: checkElementCdn,
+  });
+
+  console.log("Done: Check for loading the elements from a CDN");
+});
 
 Reset.addEventListener("click", async () => {
-  console.log("Start: Reset shadows")
+  console.log("Start: Reset shadows");
   let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
 
   chrome.scripting.executeScript({
@@ -104,7 +127,7 @@ Reset.addEventListener("click", async () => {
     function: resetShadows,
   });
 
-  console.log("Done: Reset shadows")
+  console.log("Done: Reset shadows");
 });
 
 // Start website carbon
@@ -183,11 +206,66 @@ function checkLarge() {
   window.alert("Found " + nrImages + " images that are saved with a larger width or height than they are rendered. Please consider saving these files with smaller dimensions.");
 }
 
+function checkWebsiteCdn() {
+  // Detecting if the HTTPS response is served from a CDN
+  var result = CdnDetector.detectFromHostname(location.hostname);
+  var alertText = "";
+  if (result == null) {
+    alertText = "Your website is currently not being loaded from a CDN. Consider using a content delivery network.";
+  } else {
+    alertText = "Your website is loaded from a CDN. No problems were found.";
+  }
+
+  window.alert(alertText);
+}
+
+function checkElementCdn() {
+  // Detecting if elements are served from a CDN
+  var scripts = Array.from(document.getElementsByTagName('script'));
+  var images = Array.from(document.getElementsByTagName('img'));
+  var iframes = Array.from(document.getElementsByTagName('iframe'));
+  var videos = Array.from(document.getElementsByTagName('video'));
+  var alertText = "";
+  var scriptAlert = scripts.length > 0 ? "You are loading all your scripts using CDN. No problems found with script loading.\n" : "There are no scripts to be loaded with CDN.\n";
+  for (let i = 0; i < scripts.length; i++) {
+    if (scripts.length > 0 && !scripts[i].src.includes("cdn")) {
+      scriptAlert = "You are currently not loading all your scripts using CDN. Consider using a content delivery network.\n";
+      break;
+    }
+  };
+  alertText += scriptAlert;
+  var imagesAlert = images.length > 0 ? "You are loading all your images using CDN. No problems found with image loading.\n" : "There are no images to be loaded with CDN.\n";
+  for (let i = 0; i < images.length; i++) {
+    if (images.length > 0 && !images[i].src.includes("cdn")) {
+      imagesAlert = "You are currently not loading all your images using CDN. Consider using a content delivery network.\n";
+      break;
+    }
+  };
+  alertText += imagesAlert;
+  var iframesAlert = iframes.length > 0 ? "You are loading all your iFrames using CDN. No problems found with iFrame loading.\n" : "There are no iFrames to be loaded with CDN.\n";
+  for (let i = 0; i < iframes.length; i++) {
+    if (iframes.length > 0 && !iframes[i].src.includes("cdn")) {
+      iframesAlert = "You are currently not loading all your iFrames using CDN. Consider using a content delivery network.\n";
+      break;
+    }
+  };
+  alertText += iframesAlert;
+  var videosAlert = videos.length > 0 ? "You are loading all your videos using CDN. No problems found with video loading.\n" : "There are no videos to be loaded with CDN.\n";
+  for (let i = 0; i < videos.length; i++) {
+    if (videos.length > 0 && !scripts[i].src.includes("cdn")) {
+      videosAlert = "You are currently not loading all your videos using CDN. Consider using a content delivery network.\n";
+      break;
+    }
+  };
+  alertText += videosAlert;
+
+  window.alert(alertText);
+}
+
 function checkFileFormats() {
   var imagesCollection = document.getElementsByTagName('img');
   var images = Array.from(imagesCollection);
   var nrImages = 0;
-
   images.forEach((x) => {
     const src = x.src;
     if (src.includes(".jpg") || src.includes(".jpeg") || src.includes(".png") || src.includes(".svg")) {

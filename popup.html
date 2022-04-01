@@ -2,17 +2,24 @@
 <html>
 
 <head>
-  <link rel="stylesheet" href="popup.css">
+  <link rel="stylesheet" type="text/css" href="css/fontawesome.min.css">
+  <link rel="stylesheet" type="text/css" href="css/regular.css">
+  <link rel="stylesheet" type="text/css" href="css/popup.css">
 </head>
 
 <body>
-  <h1 class="title">Check for:</h1>
+
+  <h1 class="title">greenchrome</h1>
+  <button id="details" value="tab" class="details-btn"><i class="fa-regular fa-circle-question"></i></button>
+  <h2 class="title">Check for:</h2>
   <button id="Rendered">Unrendered images</button>
   <button id="Large">Large images</button>
   <button id="FileFormats">File formats images</button>
   <button id="Autoplay">Autoplay video's</button>
   <button id="Fonts">External fonts</button>
   <button id="LazyLoading">Lazy loading</button>
+  <button id="WebsiteCdn">Website CDN</button>
+  <button id="ElementCdn">Element CDN</button>
 
   </br>
   <button id="Reset" class="reset">Reset</button>
@@ -23,7 +30,8 @@
   <div >
     <a class = "moreinfo" href='https://www.websitecarbon.com/' target="_blank"> More information...</a>
   </div>
-  <script src="popup.js"></script>
+  <script src="scripts/loader.js"></script>
+  <script src="scripts/popup.js"></script>
 </body>
 
 </html>

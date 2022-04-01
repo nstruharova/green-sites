@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="css/details.css">
+  </head>
+  <body>
+    <h1 class="title">greenchrome</h1>
+
+    <button type="button" class="collapsible">Unrendered images</button>
+    <div class="content">
+      <p>Every HTML image element has a few properties we can check. The clientHeight and clientWidth reflect the dimensions of the rendered image in CSS pixels. This height and width can also be 0. In that case the image isn’t rendered. This is image can be excess baggage or lazy loading is applied without setting the width and height, which is a bad coding practice.
+
+This can be different to the naturalHeight and naturalWidth, which are the intrinsic dimensions of the image. If the image is rendered smaller than it is saved, the website uses a larger image than is actually necessary. The developer can reduce the size of the saved image to reduce the amount of data transferred without effecting the look of the website.
+
+The property “loading" provides the instructions to the browser. It can be set to auto, lazy or eager. Auto reverts to the default lazy-loading behavior of the website. This happens when the attribute is not included by the developer. Eager loads the resource immediately, regardless of where it is located on the page. This unnecessarily increases the websites energy consumption. Lazy loading instructs to defer loading the resource until it reaches a predetermined distance from the view port. When applying lazy loading for images it is good practice to include the width and height attributes in the image tags. Without specified dimensions it is possible for layout shifts to occur.
+
+Images can be saved in different file formats. The file extension of an image is not a property we can check for. We can check the `src` tag of the html element to see if that string includes a specific file extension. This will work for most websites, so it is the technique we apply. Different formats offer different levels of compression and different image quality. In order of increasing size and quality, the most used file formats are JPG, PNG and SVG. It is up to the developer to judge which format they want to use. There is a forth, less well known, file format named AVIF. AVIF is a new, open source, royalty free image file format. It offers lossless compression that is smaller than that of the previously mentioned formats. Unfortunately the format is not supported by other browsers so an alternative file still needs to be provided to allow every browser to display an image.</p>
+    </div>
+    <p style="margin-top: 10px"></p>
+
+    <button type="button" class="collapsible">Large images</button>
+    <div class="content">
+      <p>Every HTML image element has a few properties we can check. The clientHeight and clientWidth reflect the dimensions of the rendered image in CSS pixels. This height and width can also be 0. In that case the image isn’t rendered. This is image can be excess baggage or lazy loading is applied without setting the width and height, which is a bad coding practice.
+
+This can be different to the naturalHeight and naturalWidth, which are the intrinsic dimensions of the image. If the image is rendered smaller than it is saved, the website uses a larger image than is actually necessary. The developer can reduce the size of the saved image to reduce the amount of data transferred without effecting the look of the website.
+
+The property “loading" provides the instructions to the browser. It can be set to auto, lazy or eager. Auto reverts to the default lazy-loading behavior of the website. This happens when the attribute is not included by the developer. Eager loads the resource immediately, regardless of where it is located on the page. This unnecessarily increases the websites energy consumption. Lazy loading instructs to defer loading the resource until it reaches a predetermined distance from the view port. When applying lazy loading for images it is good practice to include the width and height attributes in the image tags. Without specified dimensions it is possible for layout shifts to occur.
+
+Images can be saved in different file formats. The file extension of an image is not a property we can check for. We can check the `src` tag of the html element to see if that string includes a specific file extension. This will work for most websites, so it is the technique we apply. Different formats offer different levels of compression and different image quality. In order of increasing size and quality, the most used file formats are JPG, PNG and SVG. It is up to the developer to judge which format they want to use. There is a forth, less well known, file format named AVIF. AVIF is a new, open source, royalty free image file format. It offers lossless compression that is smaller than that of the previously mentioned formats. Unfortunately the format is not supported by other browsers so an alternative file still needs to be provided to allow every browser to display an image.</p>
+    </div>
+    <p style="margin-top: 10px"></p>
+
+    <button type="button" class="collapsible">File formats images</button>
+    <div class="content">
+      <p>Every HTML image element has a few properties we can check. The clientHeight and clientWidth reflect the dimensions of the rendered image in CSS pixels. This height and width can also be 0. In that case the image isn’t rendered. This is image can be excess baggage or lazy loading is applied without setting the width and height, which is a bad coding practice.
+
+This can be different to the naturalHeight and naturalWidth, which are the intrinsic dimensions of the image. If the image is rendered smaller than it is saved, the website uses a larger image than is actually necessary. The developer can reduce the size of the saved image to reduce the amount of data transferred without effecting the look of the website.
+
+The property “loading" provides the instructions to the browser. It can be set to auto, lazy or eager. Auto reverts to the default lazy-loading behavior of the website. This happens when the attribute is not included by the developer. Eager loads the resource immediately, regardless of where it is located on the page. This unnecessarily increases the websites energy consumption. Lazy loading instructs to defer loading the resource until it reaches a predetermined distance from the view port. When applying lazy loading for images it is good practice to include the width and height attributes in the image tags. Without specified dimensions it is possible for layout shifts to occur.
+
+Images can be saved in different file formats. The file extension of an image is not a property we can check for. We can check the `src` tag of the html element to see if that string includes a specific file extension. This will work for most websites, so it is the technique we apply. Different formats offer different levels of compression and different image quality. In order of increasing size and quality, the most used file formats are JPG, PNG and SVG. It is up to the developer to judge which format they want to use. There is a forth, less well known, file format named AVIF. AVIF is a new, open source, royalty free image file format. It offers lossless compression that is smaller than that of the previously mentioned formats. Unfortunately the format is not supported by other browsers so an alternative file still needs to be provided to allow every browser to display an image.</p>
+    </div>
+    <p style="margin-top: 10px"></p>
+
+    <button type="button" class="collapsible">Autoplay videos</button>
+    <div class="content">
+      <p>YAYA DING DONG</p>
+    </div>
+    <p style="margin-top: 10px"></p>
+
+    <button type="button" class="collapsible">External fonts</button>
+    <div class="content">
+      <p>Besides images and videos, fonts also have an impact on the energy consumption of a website. Our plugin retrieves a list of available fonts and checks whether they are system fonts. To achieve this we make use of the [CSS Font Loading API](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Font_Loading_API). This is a Web API, which are built into browsers for interacting with JavaScript. The CSS Font Loading API specifically provides an interface for a `FontFaceSet` object containing `FontFace` objects. These objects represent usable fonts. For our purposes the most important attribute of a `FontFace` object is `FontFace.family`, which is a string representing the font family of a `FontFace` object. The `FontFace` objects can be retrieved from a `FontFaceSet` object by using the`FontFaceSet.values` attribute. The `FontFaceSet` object can be accessed by using `document.fonts`, making use of another Web API interface called [Document](https://developer.mozilla.org/en-US/docs/Web/API/Document).
+
+The `FontFace` objects do not contain an attribute to check whether it is a system font. Therefore we use a list compiled from system fonts for [Microsoft](https://docs.microsoft.com/en-us/typography/fonts/windows_10_font_list) and [Apple](https://developer.apple.com/fonts/system-fonts/). For every available `FontFace` object we check whether it is part of the list, and if not, register it as a web font. We can use this to output the amount of web fonts as well as the font family strings.</p>
+    </div>
+    <p style="margin-top: 10px"></p>
+
+    <button type="button" class="collapsible">Lazy loading</button>
+    <div class="content">
+      <p>YAYA DING DONG</p>
+    </div>
+    <p style="margin-top: 10px"></p>
+
+    <button type="button" class="collapsible">Website CDN</button>
+    <div class="content">
+      <p>YAYA DING DONG</p>
+    </div>
+    <p style="margin-top: 10px"></p>
+
+    <button type="button" class="collapsible">Element CDN</button>
+    <div class="content">
+      <p>YAYA DING DONG</p>
+    </div>
+
+    <script type="text/javascript" src="scripts/details.js"></script>
+  </body>
+</html>
