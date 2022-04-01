@@ -14,8 +14,20 @@
   "content_scripts": [
     {
       "matches" : ["https://*/*"],
-      "js" : ["cdn-detector.js"]
+      "css" : ["css/fontawesome.min.css", "css/regular.css", "css/popup.css", "css/details.css"],
+      "js" : ["scripts/loader.js", "scripts/cdn-detector.js", "scripts/details.js"]
     }
   ],
+  "web_accessible_resources": [{
+    "resources": [
+      "details.html",
+      "css/details.css",
+      "css/fontawesome.min.css",
+      "css/regular.css",
+      "webfonts/fa-regular-400.woff2",
+      "webfonts/fa-v4compatibility.woff2"
+    ],
+    "matches": ["https://*/*"]
+  }],
   "options_page": "options.html"
 }
