@@ -11,5 +11,11 @@
   "action": {
     "default_popup": "popup.html"
   },
+  "content_scripts": [
+    {
+      "matches" : ["https://*/*"],
+      "js" : ["cdn-detector.js"]
+    }
+  ],
   "options_page": "options.html"
 }
