@@ -94,7 +94,6 @@ ElementCdn.addEventListener("click", async () => {
   console.log("Done: Check for loading the elements from a CDN");
 });
 
-
 Reset.addEventListener("click", async () => {
   console.log("Start: Reset shadows");
   let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
