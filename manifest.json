@@ -15,7 +15,7 @@
     {
       "matches" : ["https://*/*"],
       "css" : ["css/fontawesome.min.css", "css/regular.css", "css/popup.css", "css/details.css"],
-      "js" : ["scripts/loader.js", "scripts/cdn-detector.js", "scripts/details.js"]
+      "js" : ["scripts/loader.js", "scripts/cdn-detector.js"]
     }
   ],
   "web_accessible_resources": [{
