@@ -9,7 +9,10 @@
   "permissions": ["activeTab", "scripting", "tabs"],
   "host_permissions":["https://api.websitecarbon.com/*", "https://websitecarbon.com/*"],
   "action": {
-    "default_popup": "popup.html"
+    "default_popup": "popup.html",
+    "default_icon": {
+      "512": "icon.png"
+    }
   },
   "content_scripts": [
     {
