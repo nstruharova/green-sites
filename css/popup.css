@@ -13,22 +13,40 @@ button {
   cursor: pointer;
 }
 
-.reset{
-  background-color:#8dc4a7;
-}
-
 button:hover{
   opacity:0.7;
 }
 
+table {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.reset{
+  background-color:#8dc4a7;
+}
+
 .title {
   width:100%;
-  margin: none;
-  padding-top: 0.5em;
-  padding-bottom: 0.5em;
+  margin:0px;
   text-align: center;
   color:#217566;
+  text-decoration: none;
 }
+
+#header {
+  display: flex; 
+  justify-content: center; 
+  border: solid 3px #217566
+}
+
+#Subtitles td {
+  overflow:auto;
+  margin-bottom: 0.5em;
+}
+
 body{
   background-color: #dfeae2
 }
@@ -60,4 +78,9 @@ body{
 
 .details-btn {
   width: 20px;
+  text-align: right;
+}
+
+.details-td {
+  width: 2px;
 }
