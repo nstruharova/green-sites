@@ -25,16 +25,18 @@
 /* Style the collapsible content. Note: hidden by default */
 .content {
   padding: 0 18px;
-  color:#217566;
+  color: #217566;
   display: none;
   overflow: hidden;
   background-color: #b4d5c0;
-  margin-bottom: 10px;
+  margin-bottom: 1em;
+  margin-top: 0.1em;
   font-size: 15px;
   border-radius: 5px;
   border-style: solid;
   border-color: #217566;
   border-width: 1.5px;
+  text-align: left;
 }
 
 .title {
@@ -47,4 +49,14 @@
 }
 body{
   background-color: #dfeae2
+}
+
+#center {
+  width: 90%;
+  text-align: left;
+  margin:auto
+} 
+
+a {
+  color:  #217566;
 }
