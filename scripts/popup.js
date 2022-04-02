@@ -345,7 +345,25 @@ function checkLazyLoading() {
 
   });
 
-  var alertText = "Found " + nrEager + "eagerly loaded images and " + nrAutoImage + " images using the default browser settings. Please consider specifying lazy loading."
+  var alertText = "Found " + nrEager + " eagerly loaded images and " + nrAutoImage + " images using the default browser settings. Please consider specifying lazy loading. \n"
+
+  var iframesCollection = document.getElementsByTagName('iframe');
+  var iframes = Array.from(iframesCollection);
+  var nrEageriFrame = 0;
+  var nrAutoiFrame = 0;
+  iframes.forEach((x) => {
+    if (x.loading == "eager") {
+      x.style.filter = "opacity(0.7) drop-shadow(0.3em 0.3em 0 #ed6039)"; //red
+      nrEageriFrame++;
+    } else if (x.loading == "auto") {
+      x.style.filter = "opacity(0.7) drop-shadow(0.3em 0.3em 0 #f0db3c)"; //yellow
+      nrAutoiFrame++;
+    }
+
+  });
+
+  alertText += "Found " + nrEageriFrame + " eagerly loaded iFrames and " + nrAutoiFrame + " iFrames using the default browser settings. Please consider specifying lazy loading. \n";
+
 
   var videoCollection = document.getElementsByTagName('video');
   var videos = Array.from(videoCollection);
