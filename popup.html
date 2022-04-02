@@ -8,28 +8,51 @@
 </head>
 
 <body>
-
-  <h1 class="title">greenchrome</h1>
-  <button id="Details" value="tab" class="details-btn"><i class="fa-regular fa-circle-question"></i></button>
-  <h2 class="title">Check for:</h2>
-  <button id="Rendered">Unrendered images</button>
-  <button id="Large">Large images</button>
-  <button id="FileFormats">File formats images</button>
-  <button id="Autoplay">Autoplay video's</button>
-  <button id="Fonts">External fonts</button>
-  <button id="LazyLoading">Lazy loading</button>
-  <button id="WebsiteCdn">Website CDN</button>
-  <button id="ElementCdn">Element CDN</button>
-
-  </br>
-  <button id="Reset" class="reset">Reset</button>
-  <div id="websitecarbon" class="websitecarbon">
-    <h1 class="title"> Website Carbon</h1>
-    <p id="message" class="message"> ...loading...</p>
-  </div>
-  <div>
-    <a class="moreinfo" href='https://www.websitecarbon.com/' target="_blank"> More information...</a>
-  </div>
+  <table>
+    <tbody>
+      <tr id="header">
+        <td style="width: 100%; padding-bottom: 4px; align-self: center;">
+          <h1 class="title" style="margin:0px;">Green Chrome</h1>
+        </td>
+        <td>
+          <button id="Details" value="tab" class="details-btn"><i class="fa-regular fa-circle-question"></i></button>
+        </td>
+      </tr>
+      <tr id="Subtitles">
+        <td>
+          <h2 class="title">Check for:</h2>
+        </td>
+        <td style="text-align: right;">
+          <h2 class="title"> Website Carbon</h2>
+        </td>
+      <tr id="Content">
+        <td id="Checks" style="text-align: center;">
+          <button id="Rendered">Unrendered images</button>
+          <button id="Large">Large images</button>
+          <button id="FileFormats">File formats images</button>
+          <button id="Autoplay">Autoplay video's</button>
+          <button id="Fonts">External fonts</button>
+          <button id="LazyLoading">Lazy loading</button>
+          <button id="WebsiteCdn">Website CDN</button>
+          <button id="ElementCdn">Element CDN</button>
+        </td>
+        <td id="WebsiteCarbon" style="text-align: center; vertical-align: baseline;">
+          <div id="websitecarbon" class="websitecarbon">
+            <p id="message" class="message"> ...loading...</p>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <button id="Reset" class="reset">Reset</button>
+        </td>
+        <td style="text-align: center;">
+          <a class="moreinfo" href='https://www.websitecarbon.com/' target="_blank"> More
+            information...</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
   <script src="scripts/loader.js"></script>
   <script src="scripts/popup.js"></script>
 </body>
