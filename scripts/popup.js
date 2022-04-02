@@ -280,7 +280,7 @@ function checkLazyLoading() {
   });
   
   if (nrEager + nrAutoImage > 0) {
-    var alertText = "Found " + nrEager + " eagerly loaded images shown in red and " + nrAutoImage + " images using the default browser settings shown in yellow. Please consider specifying lazy loading for these images.\n"
+    var alertText = "Found " + nrEager + " eagerly loaded images shown in red and " + nrAutoImage + " images using the default browser settings shown in yellow. Please consider specifying lazy loading for these images.\n\n"
   }
   else {
     var alertText = "Found no eagerly loaded images or images using default browser settings.\n"
@@ -302,7 +302,7 @@ function checkLazyLoading() {
   });
   
   if (nrEageriFrame + nrAutoiFrame > 0) {
-    alertText += "Found " + nrEageriFrame + " eagerly loaded images shown in red and " + nrAutoiFrame + " images using the default browser settings shown in yellow. Please consider specifying lazy loading for these images.\n";
+    alertText += "Found " + nrEageriFrame + " eagerly loaded iFrames shown in red and " + nrAutoiFrame + " iFrames using the default browser settings shown in yellow. Please consider specifying lazy loading for these iFrames.\n\n";
   }
   else {
     alertText = "Found no eagerly loaded iFrames or iFrames using default browser settings.\n"
