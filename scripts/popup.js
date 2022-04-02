@@ -1,26 +1,3 @@
-// showConsumption.addEventListener("click", async () => {
-//   console.log('Start all tests');
-//   let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-//   chrome.scripting.executeScript({
-//     target: { tabId: tab.id, allFrames: true },
-//     function: getImages,
-//   }, (images) => {
-//     console.log(images)
-//   });
-
-//   chrome.scripting.executeScript({
-//     target: { tabId: tab.id },
-//     function: getVideos,
-//   });
-
-//   console.log('End all tests');
-
-//   chrome.scripting.executeScript({
-//     target: { tabId: tab.id },
-//     function: checkLazyLoading,
-//   });
-// });
-
 Rendered.addEventListener("click", async () => {
   console.log("Start: Check rendered images");
   let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
@@ -197,68 +174,12 @@ function checkLarge() {
 
   images.forEach((x) => {
     if (x.naturalWidth > 0 && x.naturalHeight > 0 && (x.clientWidth < x.clientHeight || x.clientHeight < x.naturalHeight)) {
-      x.style.filter = "opacity(0.7) drop-shadow(0.3em 0.3em 0 #ed6039)";
+      x.style.filter = "opacity(0.3) drop-shadow(0.3em 0.3em 0.3em #ed6039)";
       nrImages++;
     }
   });
 
-  window.alert("Found " + nrImages + " images that are saved with a larger width or height than they are rendered. Please consider saving these files with smaller dimensions.");
-}
-
-function checkWebsiteCdn() {
-  // Detecting if the HTTPS response is served from a CDN
-  var result = CdnDetector.detectFromHostname(location.hostname);
-  var alertText = "";
-  if (result == null) {
-    alertText = "Your website is currently not being loaded from a CDN. Consider using a content delivery network.";
-  } else {
-    alertText = "Your website is loaded from a CDN. No problems were found.";
-  }
-
-  window.alert(alertText);
-}
-
-function checkElementCdn() {
-  // Detecting if elements are served from a CDN
-  var scripts = Array.from(document.getElementsByTagName('script'));
-  var images = Array.from(document.getElementsByTagName('img'));
-  var iframes = Array.from(document.getElementsByTagName('iframe'));
-  var videos = Array.from(document.getElementsByTagName('video'));
-  var alertText = "";
-  var scriptAlert = scripts.length > 0 ? "You are loading all your scripts using CDN. No problems found with script loading.\n" : "There are no scripts to be loaded with CDN.\n";
-  for (let i = 0; i < scripts.length; i++) {
-    if (scripts.length > 0 && !scripts[i].src.includes("cdn")) {
-      scriptAlert = "You are currently not loading all your scripts using CDN. Consider using a content delivery network.\n";
-      break;
-    }
-  };
-  alertText += scriptAlert;
-  var imagesAlert = images.length > 0 ? "You are loading all your images using CDN. No problems found with image loading.\n" : "There are no images to be loaded with CDN.\n";
-  for (let i = 0; i < images.length; i++) {
-    if (images.length > 0 && !images[i].src.includes("cdn")) {
-      imagesAlert = "You are currently not loading all your images using CDN. Consider using a content delivery network.\n";
-      break;
-    }
-  };
-  alertText += imagesAlert;
-  var iframesAlert = iframes.length > 0 ? "You are loading all your iFrames using CDN. No problems found with iFrame loading.\n" : "There are no iFrames to be loaded with CDN.\n";
-  for (let i = 0; i < iframes.length; i++) {
-    if (iframes.length > 0 && !iframes[i].src.includes("cdn")) {
-      iframesAlert = "You are currently not loading all your iFrames using CDN. Consider using a content delivery network.\n";
-      break;
-    }
-  };
-  alertText += iframesAlert;
-  var videosAlert = videos.length > 0 ? "You are loading all your videos using CDN. No problems found with video loading.\n" : "There are no videos to be loaded with CDN.\n";
-  for (let i = 0; i < videos.length; i++) {
-    if (videos.length > 0 && !scripts[i].src.includes("cdn")) {
-      videosAlert = "You are currently not loading all your videos using CDN. Consider using a content delivery network.\n";
-      break;
-    }
-  };
-  alertText += videosAlert;
-
-  window.alert(alertText);
+  window.alert("Found " + nrImages + " images that are saved with a larger width or height than they are rendered. Please check the page for the transparant and red images, consider saving these files with smaller dimensions.");
 }
 
 function checkFileFormats() {
@@ -268,12 +189,12 @@ function checkFileFormats() {
   images.forEach((x) => {
     const src = x.src;
     if (src.includes(".jpg") || src.includes(".jpeg") || src.includes(".png") || src.includes(".svg")) {
-      x.style.filter = "opacity(0.7) drop-shadow(0.3em 0.3em 0 #ed6039)";
+      x.style.filter = "opacity(0.3) drop-shadow(0.3em 0.3em 0.3em #ed6039)";
       nrImages++;
     }
   });
 
-  window.alert("Found " + nrImages + " images in JPG, PNG or SVG format. Please consider using the AVIF format.");
+  window.alert("Found " + nrImages + " images in JPG, PNG or SVG format. Please check the page for the transparant and red images, consider using the AVIF format for these files where possible.");
 }
 
 function checkAutoplay() {
@@ -283,12 +204,12 @@ function checkAutoplay() {
 
   videos.forEach((x) => {
     if (x.autoplay == true) {
-      x.style.filter = "opacity(0.7) drop-shadow(0.3em 0.3em 0 #ed6039)";
+      x.style.filter = x.style.filter = "opacity(0.3) drop-shadow(0.3em 0.3em 0.3em #ed6039)";
       nrVideos++;
     }
   });
 
-  window.alert("Found " + nrVideos + " video's with autoplay. Please consider turning off autoplay.")
+  window.alert("Found " + nrVideos + " video's with autoplay. Please consider turning off autoplay for the videos shown transparently.")
 }
 
 function checkFonts() {
@@ -334,16 +255,16 @@ function checkLazyLoading() {
 
   images.forEach((x) => {
     if (x.loading == "eager") {
-      x.style.filter = "opacity(0.7) drop-shadow(0.3em 0.3em 0 #ed6039)"; //red
+      x.style.filter = "opacity(0.3) drop-shadow(0.3em 0.3em 0 #ed6039)"; //red
       nrEager++;
     } else if (x.loading == "auto") {
-      x.style.filter = "opacity(0.7) drop-shadow(0.3em 0.3em 0 #f0db3c)"; //yellow
+      x.style.filter = "opacity(0.3) drop-shadow(0.3em 0.3em 0 #f0db3c)"; //yellow
       nrAutoImage++;
     }
 
   });
 
-  var alertText = "Found " + nrEager + " eagerly loaded images and " + nrAutoImage + " images using the default browser settings. Please consider specifying lazy loading."
+  var alertText = "Found " + nrEager + " eagerly loaded images shown in red and " + nrAutoImage + " images using the default browser settings shown in yellow. Please consider specifying lazy loading for these images."
 
   var videoCollection = document.getElementsByTagName('video');
   var videos = Array.from(videoCollection);
@@ -352,15 +273,71 @@ function checkLazyLoading() {
 
   videos.forEach((x) => {
     if (x.preload == "metadata") {
-      x.style.filter = "opacity(0.7) drop-shadow(0.3em 0.3em 0 #f0db3c)"; //yellow
+      x.style.filter = "opacity(0.3) drop-shadow(0.3em 0.3em 0 #f0db3c)"; //yellow
       nrMeta++;
     } else if (x.preload == "auto") {
-      x.style.filter = "opacity(0.7) drop-shadow(0.3em 0.3em 0 #ed6039)"; //red
+      x.style.filter = "opacity(0.3) drop-shadow(0.3em 0.3em 0 #ed6039)"; //red
       nrAutoVideo++;
     }
   });
 
-  alertText = alertText + "\n Found " + nrAutoVideo + " automatically loaded video's and " + nrMeta + " video's where only the metadata is loaded. Please consider setting the preload attribute to 'none'.";
+  alertText = alertText + "\n Found " + nrAutoVideo + " automatically loaded videos shown in yellow and " + nrMeta + " video's where only the metadata is loaded shown in red. Please consider setting the preload attribute to 'none' for these videos.";
+  window.alert(alertText);
+}
+
+
+function checkWebsiteCdn() {
+  // Detecting if the HTTPS response is served from a CDN
+  var result = CdnDetector.detectFromHostname(location.hostname);
+  var alertText = "";
+  if (result == null) {
+    alertText = "Your website is currently not being loaded from a CDN. Consider using a content delivery network.";
+  } else {
+    alertText = "Your website is loaded from a CDN. No problems were found.";
+  }
+  window.alert(alertText);
+}
+
+function checkElementCdn() {
+  // Detecting if elements are served from a CDN
+  var scripts = Array.from(document.getElementsByTagName('script'));
+  var images = Array.from(document.getElementsByTagName('img'));
+  var iframes = Array.from(document.getElementsByTagName('iframe'));
+  var videos = Array.from(document.getElementsByTagName('video'));
+  var alertText = "";
+  var scriptAlert = scripts.length > 0 ? "You are loading all your scripts using CDN. No problems found with script loading.\n" : "There are no scripts to be loaded with CDN.\n";
+  for (let i = 0; i < scripts.length; i++) {
+    if (scripts.length > 0 && !scripts[i].src.includes("cdn")) {
+      scriptAlert = "You are currently not loading all your scripts using CDN. Consider using a content delivery network.\n";
+      break;
+    }
+  };
+  alertText += scriptAlert;
+  var imagesAlert = images.length > 0 ? "You are loading all your images using CDN. No problems found with image loading.\n" : "There are no images to be loaded with CDN.\n";
+  for (let i = 0; i < images.length; i++) {
+    if (images.length > 0 && !images[i].src.includes("cdn")) {
+      imagesAlert = "You are currently not loading all your images using CDN. Consider using a content delivery network.\n";
+      break;
+    }
+  };
+  alertText += imagesAlert;
+  var iframesAlert = iframes.length > 0 ? "You are loading all your iFrames using CDN. No problems found with iFrame loading.\n" : "There are no iFrames to be loaded with CDN.\n";
+  for (let i = 0; i < iframes.length; i++) {
+    if (iframes.length > 0 && !iframes[i].src.includes("cdn")) {
+      iframesAlert = "You are currently not loading all your iFrames using CDN. Consider using a content delivery network.\n";
+      break;
+    }
+  };
+  alertText += iframesAlert;
+  var videosAlert = videos.length > 0 ? "You are loading all your videos using CDN. No problems found with video loading.\n" : "There are no videos to be loaded with CDN.\n";
+  for (let i = 0; i < videos.length; i++) {
+    if (videos.length > 0 && !scripts[i].src.includes("cdn")) {
+      videosAlert = "You are currently not loading all your videos using CDN. Consider using a content delivery network.\n";
+      break;
+    }
+  };
+  alertText += videosAlert;
+
   window.alert(alertText);
 }
 
