@@ -286,6 +286,28 @@ function checkLazyLoading() {
     var alertText = "Found no eagerly loaded images or images using default browser settings.\n"
   }
 
+  var iframesCollection = document.getElementsByTagName('iframe');
+  var iframes = Array.from(iframesCollection);
+  var nrEageriFrame = 0;
+  var nrAutoiFrame = 0;
+  iframes.forEach((x) => {
+    if (x.loading == "eager") {
+      x.style.filter = "opacity(0.7) drop-shadow(0.3em 0.3em 0 #ed6039)"; //red
+      nrEageriFrame++;
+    } else if (x.loading == "auto") {
+      x.style.filter = "opacity(0.7) drop-shadow(0.3em 0.3em 0 #f0db3c)"; //yellow
+      nrAutoiFrame++;
+    }
+
+  });
+  
+  if (nrEageriFrame + nrAutoiFrame > 0) {
+    alertText += "Found " + nrEageriFrame + " eagerly loaded images shown in red and " + nrAutoiFrame + " images using the default browser settings shown in yellow. Please consider specifying lazy loading for these images.\n";
+  }
+  else {
+    alertText = "Found no eagerly loaded iFrames or iFrames using default browser settings.\n"
+  }
+  
   var videoCollection = document.getElementsByTagName('video');
   var videos = Array.from(videoCollection);
   let nrMeta = 0;
