@@ -330,39 +330,82 @@ function checkElementCdn() {
   var iframes = Array.from(document.getElementsByTagName('iframe'));
   var videos = Array.from(document.getElementsByTagName('video'));
   var alertText = "";
-  var scriptAlert = scripts.length > 0 ? "You are loading all your scripts using CDN. No problems found with script loading.\n" : "There are no scripts to be loaded with CDN.\n";
+  
+  let nrScript = 0;
   for (let i = 0; i < scripts.length; i++) {
-    if (scripts.length > 0 && !scripts[i].src.includes("cdn")) {
-      scriptAlert = "You are currently not loading all your scripts using CDN. Consider using a content delivery network.\n";
-      break;
+    if (!scripts[i].src.includes("cdn")) {
+      nrScript += 1;
     }
   };
+  let scriptAlert = "";
+  if (scripts.length == 0) {
+    scriptAlert = "There are no scripts to be loaded with CDN.\n";
+  } 
+  else if (nrScript == 0) {
+    scriptAlert = "You are loading all your scripts using CDN. No problems found with script loading.\n";
+  }
+  else {
+    scriptAlert = "You are currently not loading " + nrScript + " of your scripts using CDN.\n";
+  }
   alertText += scriptAlert;
-  var imagesAlert = images.length > 0 ? "You are loading all your images using CDN. No problems found with image loading.\n" : "There are no images to be loaded with CDN.\n";
+
+  let nrImg = 0;
   for (let i = 0; i < images.length; i++) {
-    if (images.length > 0 && !images[i].src.includes("cdn")) {
-      imagesAlert = "You are currently not loading all your images using CDN. Consider using a content delivery network.\n";
-      break;
+    if (!images[i].src.includes("cdn")) {
+      nrImg += 1;
     }
   };
+  let imagesAlert = ""
+  if (images.length == 0) {
+    imagesAlert = "There are no images to be loaded with CDN.\n"
+  }
+  else if (nrImg == 0) {
+    imagesAlert = "You are loading all your images using CDN. No problems found with image loading.\n" 
+  }
+  else {
+    imagesAlert = "You are currently not loading " + nrImg + " of your images using CDN. \n";
+  }
   alertText += imagesAlert;
-  var iframesAlert = iframes.length > 0 ? "You are loading all your iFrames using CDN. No problems found with iFrame loading.\n" : "There are no iFrames to be loaded with CDN.\n";
+  
+  var iframesAlert = ""
+  let nrFrames = 0;
   for (let i = 0; i < iframes.length; i++) {
-    if (iframes.length > 0 && !iframes[i].src.includes("cdn")) {
-      iframesAlert = "You are currently not loading all your iFrames using CDN. Consider using a content delivery network.\n";
-      break;
+    if (!iframes[i].src.includes("cdn")) {
+      nrFrames += 1;
     }
   };
+  if (iframes.length == 0) {
+    iframesAlert = "There are no iFrames to be loaded with CDN.\n";
+  }
+  else if (nrFrames == 0) {
+    iframesAlert = "You are loading all your iFrames using CDN. No problems found with iFrame loading.\n";
+  }
+  else {
+    iframesAlert = "You are currently not loading " + nrFrames + " of your iFrames using CDN.\n";
+  }
   alertText += iframesAlert;
-  var videosAlert = videos.length > 0 ? "You are loading all your videos using CDN. No problems found with video loading.\n" : "There are no videos to be loaded with CDN.\n";
+  
+  var videosAlert = "";
+  let nrVideos = 0;
   for (let i = 0; i < videos.length; i++) {
-    if (videos.length > 0 && !scripts[i].src.includes("cdn")) {
-      videosAlert = "You are currently not loading all your videos using CDN. Consider using a content delivery network.\n";
-      break;
+    if (!scripts[i].src.includes("cdn")) {
+      nrVideos += 1;
     }
   };
+  if (videos.length == 0) {
+    videosAlert = "There are no videos to be loaded with CDN."
+  }
+  else if (nrVideos == 0) {
+    videosAlert = "You are loading all your videos using CDN. No problems found with video loading."
+  }
+  else {
+    videosAlert = "You are currently not loading all your videos using CDN. Consider using a content delivery network.";
+  }
   alertText += videosAlert;
 
+  if (nrScript + nrImg + nrFrames + nrVideos > 0) {
+    alertText += "\n\nConsider using a content delivery network for the identified content."
+  }
   window.alert(alertText);
 }
 
