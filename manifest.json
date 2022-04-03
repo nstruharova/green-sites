@@ -9,26 +9,11 @@
   "permissions": ["activeTab", "scripting", "tabs"],
   "host_permissions":["https://api.websitecarbon.com/*", "https://websitecarbon.com/*"],
   "action": {
-    "default_popup": "popup.html"
-  },
-  "content_scripts": [
-    {
-      "matches" : ["https://*/*"],
-      "css" : ["css/fontawesome.min.css", "css/regular.css", "css/popup.css", "css/details.css"],
-      "js" : ["scripts/loader.js", "scripts/cdn-detector.js", "scripts/details.js"]
+    "default_popup": "popup.html",
+    "default_icon": {
+      "512": "icon.png"
     }
-  ],
-  "web_accessible_resources": [{
-    "resources": [
-      "details.html",
-      "css/details.css",
-      "css/fontawesome.min.css",
-      "css/regular.css",
-      "webfonts/fa-regular-400.woff2",
-      "webfonts/fa-v4compatibility.woff2"
-    ],
-    "matches": ["https://*/*"]
-  }],
+  },
   "options_page": "options.html",
   "icons": {
     "512": "icon.png"

@@ -4,5 +4,4 @@ function showIndex() {
         url: index_url
     });
 }
-
-document.getElementById('details').addEventListener("click", showIndex);
+Details.addEventListener("click", showIndex);
