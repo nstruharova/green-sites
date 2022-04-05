@@ -1,21 +1,42 @@
 # GreenSites: Sustainable Web Development
-GreenSites is an extension for the Chrome™ browser that measures the energy consumption of a given website and identifies which elements are mostly responsible. It is a tool meant for developers to enable them to make their sites more sustainable. 
+GreenSites is an extension for the Chrome™ browser identifies the elements which may contribute to excessive energy consumption by analysing them for bad design practices. It is a tool meant for developers to enable them to make their sites more sustainable, and with that, cut the unnecessary energy consumption and the associated carbon emissions. 
+
+# Our goals
+
+# Features
 
 GreenSites checks the following: 
-- Images
-    - Whether images are being loaded but not being rendered.
-    - If an image resolution is larger then it's displayed size.
-    - Which image file types are being used. 
-- For videos if autoplay is on.
-- Whether any external fonts are downloaded.
-- How lazy loading is applied. 
-- Content Delivery Networks
-    - If the website is loaded with a CDN.
-    - Which elements are not loaded with a CDN.
+- Images (`<img>`):
+    - checks whether the images are being loaded and not being rendered
+    - checks whether an image resolution is larger then its displayed size
+    - checks which image file types are being used
+- Videos (`<video>`):
+    - checks whether `autoplay` is enabled
+- Fonts:
+    - checks for loading of external fonts instead of using system fonts
+- Lazy loading:
+    - checks the following element types for usage of lazy-loading:
+        - images (`<img>`)
+        - videos (`<video>`)
+        - iFrames (`<iframe>`)
+- Content Delivery Network usage (CDN)
+    - checks whether a website's HTTPS response is loaded using a CDN
+    - check whether the following element types are loaded using a CDN:
+        - images (`<img>`)
+        - videos (`<video>`)
+        - iFrames (`<iframe>`)
+        - scripts (`<script>`)
 
 See the details page in the plugin for explanations of the features. 
+
+# Tools and foundation
+
 The extension makes use of https://websitecarbon.com for displaying the energy consumption of the website. The measures were based mainly on the following checklist: https://www.wholegraindigital.com/blog/website-energy-efficiency/. 
 
-The plugin is currently in active development, it has not been published on the Chrome Webstore.
+# Usage
 
-Before contributing please read our Code of Conduct and Contributing files for more information. 
+The plugin is currently in active development, therefore it has not been published on the Chrome Webstore. If you would like to make use of GreenSites now, please clone the repository and follow 
+
+# Found a new issue or want to contribute?
+
+GreenSites is an open-source project, and thus we invite anyone and everyone interested in web development or simply improving the plug-in. To make your contribution process as smooth as possible, please see our instructions on [how to contribute](https://github.com/nstruharova/green-sites/blob/main/CONTRIBUTING.md) and read the Code of Conduct before adding a contribution.
