@@ -3,6 +3,8 @@ GreenSites is an extension for the Chrome™ browser identifies the elements whi
 
 # Our goals
 
+Our main goal is to provide developers with additional support when designing a new website or re-designing an existing website for sustainability. To make it as convenient as possible to use, we integrated the functionality in form of a plug-
+
 # Features
 
 GreenSites checks the following: 
@@ -38,5 +40,7 @@ The extension makes use of https://websitecarbon.com for displaying the energy c
 The plugin is currently in active development, therefore it has not been published on the Chrome Webstore. If you would like to make use of GreenSites now, please clone the repository and follow 
 
 # Found a new issue or want to contribute?
+
+If you found an issue with the plug-in or have a new feature request, you can [add a new issue](https://github.com/nstruharova/green-sites/issues/new/choose) to our our [issue list](https://github.com/nstruharova/green-sites/issues). To make it clear what your issue refers to, please use the `bug`/`refactoring`/`feature-request` tags.
 
 GreenSites is an open-source project, and thus we invite anyone and everyone interested in web development or simply improving the plug-in. To make your contribution process as smooth as possible, please see our instructions on [how to contribute](https://github.com/nstruharova/green-sites/blob/main/CONTRIBUTING.md) and read the Code of Conduct before adding a contribution.
