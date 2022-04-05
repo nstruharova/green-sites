@@ -3,7 +3,7 @@ GreenSites is an extension for the Chrome™ browser identifies the elements whi
 
 # Our goals
 
-Our main goal is to provide developers with additional support when designing a new website or re-designing an existing website for sustainability. To make it as convenient as possible to use, we integrated the functionality in form of a plug-
+Our main goal is to provide developers with additional support when designing a new website or re-designing an existing website for sustainability. To make it as convenient as possible to use, we integrated the functionality in form of a plug-in that can be used directly in the Chrome™ browser during web design. 
 
 # Features
 
