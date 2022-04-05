@@ -37,7 +37,9 @@ The extension makes use of https://websitecarbon.com for displaying the energy c
 
 # Usage
 
-The plugin is currently in active development, therefore it has not been published on the Chrome Webstore. If you would like to make use of GreenSites now, please clone the repository and follow 
+The plugin is currently in active development, therefore it has not been published on the Chrome Webstore. If you would like to make use of GreenSites now, please clone the repository and follow the [manual](https://www.thesslstore.com/blog/install-a-chrome-extension/) on how to integrate the source code into your Chrome™ browser.
+
+Within the browser, you can use GreenSites as you would use any other plug-in. When you run the plug-in, you will get a drop-down menu with buttons targetting the specific element type check. For more details on the specific element groups and explanations on the associated warnings, click on the helper icon with the question mark to open a new page with the information.
 
 # Found a new issue or want to contribute?
 
