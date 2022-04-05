@@ -43,6 +43,6 @@ Within the browser, you can use GreenSites as you would use any other plug-in. W
 
 # Found a new issue or want to contribute?
 
-If you found an issue with the plug-in or have a new feature request, you can [add a new issue](https://github.com/nstruharova/green-sites/issues/new/choose) to our our [issue list](https://github.com/nstruharova/green-sites/issues). To make it clear what your issue refers to, please use the `bug`/`refactoring`/`feature-request` tags.
+If you found an issue with the plug-in or have a new feature request, you can [add a new issue](https://github.com/nstruharova/green-sites/issues/new/choose) to our our [issue list](https://github.com/nstruharova/green-sites/issues). To make it clear what your issue refers to, please use one of our [12 labels](https://github.com/nstruharova/green-sites/labels). If you are missing a label, let us know in the issues!
 
 GreenSites is an open-source project, and thus we invite anyone and everyone interested in web development or simply improving the plug-in. To make your contribution process as smooth as possible, please see our instructions on [how to contribute](https://github.com/nstruharova/green-sites/blob/main/CONTRIBUTING.md) and read the Code of Conduct before adding a contribution.
